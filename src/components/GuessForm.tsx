@@ -1,4 +1,18 @@
+import { useEffect, useState } from "react";
+
 const GuessForm = () => {
+	const minNum = 1;
+	const maxNum = 100;
+	const [randomNo, setRandomNo] = useState(0);
+
+	useEffect(() => {
+		const randomNumber =
+			Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum;
+		setRandomNo(randomNumber);
+	}, []);
+
+	console.log(randomNo);
+
 	return (
 		<div className="bg-[#FBDB93] h-auto w-[500px] rounded-xl px-5 py-8">
 			<div className="">
