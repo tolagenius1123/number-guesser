@@ -1,12 +1,20 @@
 import { useEffect, useState, type FormEvent } from "react";
 import { toast } from "react-toastify";
 
-const GuessForm = () => {
+type GuessFormProps = {
+	hasGameStarted?: boolean;
+	setHasGameStarted: (value: boolean) => void;
+};
+
+const GuessForm = ({ setHasGameStarted }: GuessFormProps) => {
 	const minNum = 1;
 	const maxNum = 100;
+	const maxAttempts = 5;
 
 	const [randomNo, setRandomNo] = useState(0);
+	const [attempts, setAttempts] = useState(0);
 	const [inputValue, setInputValue] = useState("");
+	const [feedback, setFeedback] = useState("");
 	const [gameIsRunning, setGameIsRunning] = useState(true);
 
 	useEffect(() => {
@@ -15,10 +23,13 @@ const GuessForm = () => {
 		setRandomNo(randomNumber);
 	}, []);
 
-	console.log(randomNo);
-
 	const handleSubmit = (e: FormEvent) => {
 		e.preventDefault();
+
+		if (!gameIsRunning) {
+			toast.info("The game has ended. Refresh to play again!");
+			return;
+		}
 
 		const guess = parseInt(inputValue.trim(), 10);
 
@@ -32,7 +43,26 @@ const GuessForm = () => {
 			return;
 		}
 
-		console.log(guess);
+		const newAttempts = attempts + 1;
+		setAttempts(newAttempts);
+
+		if (guess === randomNo) {
+			setFeedback(`🎉 Correct! The number was ${randomNo}`);
+			toast.success("You guessed it right!");
+			setGameIsRunning(false);
+
+			setTimeout(() => setHasGameStarted(false), 5000);
+		} else if (newAttempts >= maxAttempts) {
+			setFeedback(`❌ Game over! The number was ${randomNo}`);
+			toast.error("Out of attempts. Try again!");
+			setGameIsRunning(false);
+
+			setTimeout(() => setHasGameStarted(false), 3000);
+		} else if (guess < randomNo) {
+			setFeedback("Too low! ⬇️");
+		} else {
+			setFeedback("Too high! ⬆️");
+		}
 	};
 
 	return (
@@ -58,14 +88,14 @@ const GuessForm = () => {
 					>
 						Submit
 					</button>
-					{/* <button
-						type="button"
-						className="bg-[#3A0519] h-[50px] w-[180px] text-xl font-semibold text-white cursor-pointer rounded-lg hover:bg-[#BE5B50]"
-					>
-						Start here
-					</button> */}
 				</div>
 			</form>
+			<div className="mt-4 text-lg">
+				<p>{feedback}</p>
+				<p className="text-sm text-gray-700">
+					Attempts left: {maxAttempts - attempts}
+				</p>
+			</div>
 		</div>
 	);
 };

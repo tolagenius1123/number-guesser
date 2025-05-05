@@ -7,7 +7,7 @@ function App() {
 	return (
 		<div className="h-screen w-full bg-[#3A0519] p-2 flex items-center justify-center text-center">
 			{hasGameStarted ? (
-				<GuessForm />
+				<GuessForm setHasGameStarted={setHasGameStarted} />
 			) : (
 				<div className="flex flex-col h-[300px] w-auto rounded-3xl text-white gap-5 items-center">
 					<h1 className="text-4xl">Welcome to Number Guesser🚀</h1>
