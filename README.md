@@ -1,54 +1,49 @@
-# React + TypeScript + Vite
+# Number Guesser Game 🎯
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a simple number guessing game built with **React + TypeScript + Vite**. The player has a limited number of attempts to guess a secret number between 1 and 100.
 
-Currently, two official plugins are available:
+## 🎮 How to Play
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1. **Start the Game:**  
+   Click the **"Start here"** button to begin a new game.
 
-## Expanding the ESLint configuration
+2. **Guess the Number:**  
+   Enter a number between **1 and 100** into the input field and click **Submit**.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+3. **Get Feedback:**  
+   After each guess, you'll get a hint telling you if the number is:
+   - Too high 🔺
+   - Too low 🔻
+   - Correct 🎉
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+4. **Limited Attempts:**  
+   You only have a limited number of tries to guess the correct number (e.g. 5 attempts). Each incorrect guess reduces your remaining attempts.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+5. **Winning or Losing:**  
+   - If you guess the number correctly, you'll see a **success message**.
+   - If you run out of attempts without guessing the number, the game ends and reveals the correct number.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+6. **Restarting the Game:**  
+   After a few seconds, the game automatically resets to the welcome screen so you can try again.
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+⚠️ **Input Validation:**
+- Only numbers between 1 and 100 are accepted.
+- Invalid inputs are handled gracefully with helpful error messages (powered by `react-toastify`).
+
+---
+
+## 🔧 Tech Stack
+
+- **React**
+- **TypeScript**
+- **Vite**
+- **Tailwind CSS** (for styling)
+- **React Toastify** (for error and feedback messages)
+
+## 🚀 Getting Started
+
+Clone the repo and run it locally:
+
+```bash
+npm install
+npm run dev
